@@ -2,7 +2,7 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "[![Actions Status](https://github.com/erzhan12/backend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/erzhan12/backend-project-lvl2/actions)",
-  "main": "index.js",
+  "main": "src/gendiff.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -21,11 +21,12 @@
     "gendiff": "bin/gendiff.js"
   },
   "devDependencies": {
-    "eslint": "^8.4.0",
+    "eslint": "^8.7.0",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.25.3"
+    "eslint-plugin-import": "^2.25.4"
   },
   "dependencies": {
-    "commander": "^8.3.0"
+    "commander": "^8.3.0",
+    "lodash": "^4.17.21"
   }
 }

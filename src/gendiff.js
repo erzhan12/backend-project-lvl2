@@ -1,2 +1,46 @@
+import fs from 'fs';
+import path from 'path';
+import _ from 'lodash';
 
+const readFile = (fileName) => {
+  const absolutePath = path.resolve(fileName);
+  const extension = path.extname(fileName);
+  const fileData = fs.readFileSync(absolutePath, { encoding: 'utf8' });
+  let obj;
+  if (extension === '.json') {
+    obj = JSON.parse(fileData);
+  }
+  return obj;
+};
 
+const mergeKeys = (object1, object2) => Object.keys(object2).reduce((acc, key2) => {
+  if (!(key2 in acc)) acc.push(key2);
+  return acc;
+}, Object.keys(object1));
+
+const genDiff = (file1, file2) => {
+  const object1 = readFile(file1);
+  const object2 = readFile(file2);
+  const mergedKeys = mergeKeys(object1, object2).sort();
+  const result = mergedKeys.reduce((acc, key) => {
+    if (object1[key] === object2[key]) {
+      acc[`  ${key}`] = object1[key];
+      return acc;
+    }
+    if (_.has(object1, key)) {
+      acc[`- ${key}`] = object1[key];
+    }
+    if (_.has(object2, key)) {
+      acc[`+ ${key}`] = object2[key];
+    }
+    return acc;
+  }, {});
+  console.log(result);
+  const jsonString = JSON.stringify(result, null, 2)
+    .replace(/"([^"]+)":/g, '$1:')
+    .replace(/: "([^"]+)"/g, ':$1');
+  console.log(jsonString);
+  return jsonString;
+};
+
+export default genDiff;
