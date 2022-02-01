@@ -13,10 +13,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # - uses: actions/checkout@v2
-      # - name: npm install
-      #   run: 
-      #     make install
+      - uses: actions/checkout@v2
+      - name: npm install
+        run: 
+          make install
       - name: Run Tests
         run: 
           npm run test
