@@ -35,11 +35,11 @@ const genDiff = (file1, file2) => {
     }
     return acc;
   }, {});
-  console.log(result);
+  // console.log(result);
   const jsonString = JSON.stringify(result, null, 2)
     .replace(/"([^"]+)":/g, '$1:')
-    .replace(/: "([^"]+)"/g, ':$1');
-  console.log(jsonString);
+    .replace(/: "([^"]+)"/g, ': $1');
+  // console.log(jsonString);
   return jsonString;
 };
 
