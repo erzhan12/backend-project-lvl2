@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "[![Actions Status](https://github.com/erzhan12/backend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/erzhan12/backend-project-lvl2/actions)",
   "main": "src/gendiff.js",
+  "type": "module",
   "scripts": {
-    "test": "jest --colors"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -20,9 +21,7 @@
     "gendiff": "bin/gendiff.js"
   },
   "devDependencies": {
-    "@babel/core": "^7.10.1",
-    "@babel/plugin-transform-modules-commonjs": "^7.16.8",
-    "@babel/preset-env": "^7.10.1",
+    "@jest/globals": "^27.4.6",
     "@types/jest": "^27.4.0",
     "eslint": "^8.8.0",
     "eslint-config-airbnb-base": "^15.0.0",
@@ -30,7 +29,9 @@
     "jest": "^27.4.7"
   },
   "dependencies": {
+    "child_process": "^1.0.2",
     "commander": "^8.3.0",
+    "js-yaml": "^4.1.0",
     "lodash": "^4.17.21"
   }
 }

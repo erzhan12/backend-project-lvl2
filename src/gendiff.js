@@ -1,22 +1,24 @@
 import fs from 'fs';
 import path from 'path';
 import _ from 'lodash';
+import parse from './parser.js';
 
 const readFile = (fileName) => {
   const absolutePath = path.resolve(fileName);
   const extension = path.extname(fileName);
   const fileData = fs.readFileSync(absolutePath, { encoding: 'utf8' });
-  let obj;
-  if (extension === '.json') {
-    obj = JSON.parse(fileData);
-  }
+  const obj = parse(fileData, extension);
+  // console.log(obj);
   return obj;
 };
 
-const mergeKeys = (object1, object2) => Object.keys(object2).reduce((acc, key2) => {
-  if (!(key2 in acc)) acc.push(key2);
-  return acc;
-}, Object.keys(object1));
+const mergeKeys = (object1, object2) => Object.keys(object2)
+  .reduce((acc, key2) => {
+    if (!(key2 in acc)) {
+      acc.push(key2);
+    }
+    return acc;
+  }, Object.keys(object1));
 
 const genDiff = (file1, file2) => {
   const object1 = readFile(file1);
@@ -39,7 +41,7 @@ const genDiff = (file1, file2) => {
   const jsonString = JSON.stringify(result, null, 2)
     .replace(/"([^"]+)":/g, '$1:')
     .replace(/: "([^"]+)"/g, ': $1');
-  // console.log(jsonString);
+  console.log(jsonString);
   return jsonString;
 };
 
