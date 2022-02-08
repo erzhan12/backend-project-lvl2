@@ -21,6 +21,8 @@ describe('geDiff', () => {
   //   expect(actual).toBe(expected);
   // });
   it('#test yaml cli', () => {
+    console.log('test start');
+    console.log(execSync('pwd', { encoding: 'utf-8'}));
     const actual = execSync('gendiff __fixtures__/file1.yml __fixtures__/file2.yml', { encoding: 'utf-8' });
     // console.log(actual);
     expect(actual).toBe(expected);
