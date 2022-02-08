@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
+console.log('gendiff start');
 import { Command } from 'commander';
 import genDiff from '../src/gendiff.js';
 
 const program = new Command();
 
-console.log('gendiff start');
 
 program
   .version('0.0.1')
