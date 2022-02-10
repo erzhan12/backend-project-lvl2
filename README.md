@@ -6,3 +6,6 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/d54e37b1a7c9bcc5474f/test_coverage)](https://codeclimate.com/github/erzhan12/backend-project-lvl2/test_coverage)
 
 [![Test Coverage](https://github.com/erzhan12/backend-project-lvl2/actions/workflows/lint.yml/badge.svg)](https://github.com/erzhan12/backend-project-lvl2/actions/workflows/lint.yml/badge.svg)
+
+Демонстрация работы:
+[![asciicast](https://asciinema.org/a/JaTmJAVUYLK54iXD4My0xKLtR.svg)](https://asciinema.org/a/JaTmJAVUYLK54iXD4My0xKLtR)
