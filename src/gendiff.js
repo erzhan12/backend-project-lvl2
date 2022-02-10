@@ -21,8 +21,8 @@ const mergeKeys = (object1, object2) => Object.keys(object2)
   }, Object.keys(object1));
 
 const genDiff = (file1, file2) => {
-  console.log(process.cwd());
-  console.log(path.resolve(process.cwd(), file1));
+  // console.log(process.cwd());
+  // console.log(path.resolve(process.cwd(), file1));
   const object1 = readFile(path.resolve(process.cwd(), file1));
   const object2 = readFile(path.resolve(process.cwd(), file2));
   const mergedKeys = mergeKeys(object1, object2).sort();
@@ -43,7 +43,7 @@ const genDiff = (file1, file2) => {
   const jsonString = JSON.stringify(result, null, 2)
     .replace(/"([^"]+)":/g, '$1:')
     .replace(/: "([^"]+)"/g, ': $1');
-  console.log(jsonString);
+  // console.log(jsonString);
   return jsonString;
 };
 

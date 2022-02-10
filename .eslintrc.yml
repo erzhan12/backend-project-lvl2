@@ -12,4 +12,6 @@ rules:
     - error
     - ignorePackages
     - js: always
+  no-underscore-dangle: 0
+  import/no-duplicates: 0
   
