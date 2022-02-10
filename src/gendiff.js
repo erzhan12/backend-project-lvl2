@@ -3,8 +3,14 @@ import path from 'path';
 import _ from 'lodash';
 import parse from './parser.js';
 
+const getAbsolutePath = (fileName) => {
+  if (path.isAbsolute(fileName)) return fileName;
+  return path.resolve(process.cwd(), fileName);
+};
+
 const readFile = (fileName) => {
-  const absolutePath = path.resolve(fileName);
+  // const absolutePath = path.resolve(fileName);
+  const absolutePath = getAbsolutePath(fileName);
   const extension = path.extname(fileName);
   const fileData = fs.readFileSync(absolutePath, { encoding: 'utf8' });
   const obj = parse(fileData, extension);
@@ -43,7 +49,7 @@ const genDiff = (file1, file2) => {
   const jsonString = JSON.stringify(result, null, 2)
     .replace(/"([^"]+)":/g, '$1:')
     .replace(/: "([^"]+)"/g, ': $1');
-  // console.log(jsonString);
+  console.log(jsonString);
   return jsonString;
 };
 
