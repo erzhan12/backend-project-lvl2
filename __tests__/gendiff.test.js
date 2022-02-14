@@ -11,25 +11,29 @@ const __dirname = path.dirname(__filename);
 
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 
-describe('geDiff', () => {
-  const expected = fs.readFileSync(getFixturePath('expected.txt'), { encoding: 'utf8' });
-  // console.log(expected)
-  // const expectedOld = '{\n'
-  // + '  - follow: false,\n'
-  // + '    host: hexlet.io,\n'
-  // + '  - proxy: 123.234.53.22,\n'
-  // + '  - timeout: 50,\n'
-  // + '  + timeout: 20,\n'
-  // + '  + verbose: true\n'
-  // + '}';
+describe('geDiff stylish', () => {
+  const expectedStylish = fs.readFileSync(getFixturePath('expectedStylish.txt'), { encoding: 'utf8' });
 
   it('#test json', () => {
-    const actual = genDiff(getFixturePath('file1.json'), getFixturePath('file2.json'));
-    expect(actual).toBe(expected);
+    const actual = genDiff(getFixturePath('file1.json'), getFixturePath('file2.json'), 'stylish');
+    expect(actual).toBe(expectedStylish);
   });
   it('#test yaml', () => {
-    const actual = genDiff(getFixturePath('file1.yml'), getFixturePath('file2.yml'));
-    expect(actual).toBe(expected);
+    const actual = genDiff(getFixturePath('file1.yml'), getFixturePath('file2.yml'), 'stylish');
+    expect(actual).toBe(expectedStylish);
+  });
+});
+
+describe('geDiff plain', () => {
+  const expectedPlain = fs.readFileSync(getFixturePath('expectedPlain.txt'), { encoding: 'utf8' });
+
+  it('#test json', () => {
+    const actual = genDiff(getFixturePath('file1.json'), getFixturePath('file2.json'), 'plain');
+    expect(actual).toBe(expectedPlain);
+  });
+  it('#test yaml', () => {
+    const actual = genDiff(getFixturePath('file1.yml'), getFixturePath('file2.yml'), 'plain');
+    expect(actual).toBe(expectedPlain);
   });
   // it('#test yaml cli', () => {
   //   const actual = execSync('gendiff __fixtures__/file1.yml __fixtures__/file2.yml',

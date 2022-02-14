@@ -2,7 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import _ from 'lodash';
 import parse from './parser.js';
-import stylish from './stylish.js';
+// import stylish from '../formatters/stylish.js';
+import format from '../formatters/index.js';
 
 const getAbsolutePath = (fileName) => {
   if (path.isAbsolute(fileName)) return fileName;
@@ -31,12 +32,12 @@ const genDiffObjects = (object1, object2) => {
   const mergedKeys = mergeKeys(object1, object2).sort();
   const result = mergedKeys.reduce((acc, key) => {
     if (object1[key] === object2[key]) {
-      acc[`${key}`] = object1[key];
+      acc[key] = object1[key];
       return acc;
     }
     // If both values are objects
     if (isObject(object1[key]) && isObject(object2[key])) {
-      acc[`${key}`] = genDiffObjects(object1[key], object2[key]);
+      acc[key] = genDiffObjects(object1[key], object2[key]);
       return acc;
     }
     // If at least one of values isn't object
@@ -50,25 +51,17 @@ const genDiffObjects = (object1, object2) => {
   }, {});
   return result;
 };
-
-const genDiff = (file1, file2, format) => {
+const genDiff = (file1, file2, formatName) => {
   const object1 = readFile(path.resolve(process.cwd(), file1));
   const object2 = readFile(path.resolve(process.cwd(), file2));
 
   const resultObject = genDiffObjects(object1, object2);
-  console.log(resultObject);
+  // console.log(resultObject);
   // const jsonString = JSON.stringify(result, null, 3)
   //   .replace(/"([^"]+)":/g, '$1:')
   //   .replace(/: "([^"]+)",/g, ': $1')
-  let resultString = '';
-  switch (format) {
-    case 'stylish':
-      resultString = stylish(resultObject);
-      break;
-    default:
-      resultString = stylish(resultObject);
-      break;
-  }
+  const resultString = format(resultObject, formatName);
+
   console.log(resultString);
   return resultString;
 };
