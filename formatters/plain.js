@@ -30,7 +30,7 @@ const plain = (tree) => {
         return [...acc, `Property '${nextProperty(property, node.key)}' was added with value: ${iter(node.newValue, node.key, node.sign)}`];
       }
       if (node.sign === '*') {
-        return [...acc, `Property ${nextProperty(property, node.key)}'' was updated. From ${iter(node.oldValue, node.key, node.sign)} to ${iter(node.newValue, node.key, node.sign)}`];
+        return [...acc, `Property '${nextProperty(property, node.key)}' was updated. From ${iter(node.oldValue, node.key, node.sign)} to ${iter(node.newValue, node.key, node.sign)}`];
       }
       if (node.sign === '&') {
         return [...acc, ...iter(node.value, `${nextProperty(property, node.key, node.sign)}`)];
