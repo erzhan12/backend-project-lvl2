@@ -26,31 +26,80 @@ const mergeKeys = (object1, object2) => Object.keys(object2)
     return acc;
   }, Object.keys(object1));
 
-const isObject = (x) => x === Object(x);
+const isObject = (x) => x === Object(x) && !Array.isArray(x);
 
 const genDiffObjects = (object1, object2) => {
+  const assignValue = (value) => {
+    if (isObject(value)) {
+      return genDiffObjects(value, value);
+    }
+    return value;
+  };
   const mergedKeys = mergeKeys(object1, object2).sort();
   const result = mergedKeys.reduce((acc, key) => {
-    if (object1[key] === object2[key]) {
-      acc[key] = object1[key];
-      return acc;
-    }
+    const object = {};
+    object.key = key;
+
+    // If not equal
     // If both values are objects
     if (isObject(object1[key]) && isObject(object2[key])) {
-      acc[key] = genDiffObjects(object1[key], object2[key]);
-      return acc;
+      object.sign = '&';
+      object.value = genDiffObjects(object1[key], object2[key]);
+      return [...acc, object];
     }
-    // If at least one of values isn't object
+    if (object1[key] === object2[key]) {
+      object.sign = '=';
+      object.value = assignValue(object1[key]);
+      return [...acc, object];
+    }
+    // if changed
+    if (_.has(object1, key) && _.has(object2, key)) {
+      object.sign = '*';
+      object.oldValue = assignValue(object1[key]);
+      object.newValue = assignValue(object2[key]);
+      return [...acc, object];
+    }
+    // removed
     if (_.has(object1, key)) {
-      acc[`- ${key}`] = object1[key];
+      object.sign = '-';
+      object.oldValue = assignValue(object1[key]);
+      return [...acc, object];
     }
+    // added
     if (_.has(object2, key)) {
-      acc[`+ ${key}`] = object2[key];
+      object.sign = '+';
+      object.newValue = assignValue(object2[key]);
+      return [...acc, object];
     }
+
     return acc;
-  }, {});
+  }, []);
   return result;
 };
+
+// const genDiffObjectsOld = (object1, object2) => {
+//   const mergedKeys = mergeKeys(object1, object2).sort();
+//   const result = mergedKeys.reduce((acc, key) => {
+//     if (object1[key] === object2[key]) {
+//       acc[key] = object1[key];
+//       return acc;
+//     }
+//     // If both values are objects
+//     if (isObject(object1[key]) && isObject(object2[key])) {
+//       acc[key] = genDiffObjects(object1[key], object2[key]);
+//       return acc;
+//     }
+//     // If at least one of values isn't object
+//     if (_.has(object1, key)) {
+//       acc[`- ${key}`] = object1[key];
+//     }
+//     if (_.has(object2, key)) {
+//       acc[`+ ${key}`] = object2[key];
+//     }
+//     return acc;
+//   }, {});
+//   return result;
+// };
 const genDiff = (file1, file2, formatName) => {
   const object1 = readFile(path.resolve(process.cwd(), file1));
   const object2 = readFile(path.resolve(process.cwd(), file2));
@@ -60,6 +109,7 @@ const genDiff = (file1, file2, formatName) => {
   // const jsonString = JSON.stringify(result, null, 3)
   //   .replace(/"([^"]+)":/g, '$1:')
   //   .replace(/: "([^"]+)",/g, ': $1')
+  console.log(JSON.stringify(resultObject, null, 2));
   const resultString = format(resultObject, formatName);
 
   console.log(resultString);

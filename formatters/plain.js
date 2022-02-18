@@ -1,13 +1,6 @@
-const isObject = (x) => x === Object(x);
 const nextProperty = (currentProperty, newKey) => {
   const result = (currentProperty === '') ? newKey : `${currentProperty}.${newKey}`;
   return result;
-};
-const getUpdated = (node, key) => {
-  let correspondingKey = '';
-  if (key[0] === '-') correspondingKey = `+ ${key.slice(2)}`;
-  else if (key[0] === '+') correspondingKey = `- ${key.slice(2)}`;
-  return [node[key], node[correspondingKey]];
 };
 
 const toString = (value) => {
@@ -24,30 +17,32 @@ const toString = (value) => {
 };
 
 const plain = (tree) => {
-  let resultString = '';
+  const iter = (element, property = '', prevSign = '&') => {
+    if (!Array.isArray(element)) {
+      return toString(element);
+    }
 
-  const iter = (node, property) => {
-    const entries = Object.entries(node);
-    const lines = entries.reduce((acc, currentItem) => {
-      const [key, value] = currentItem;
-      const [oldValue, newValue] = getUpdated(node, key);
-      if (newValue !== undefined) {
-        if (key[0] === '-') {
-          // Only one text for both '-' and '+'
-          return [...acc, `Property '${property}.${key.slice(2)}' was updated. From ${toString(oldValue)} to ${toString(newValue)}`];
-        }
-        return acc;
+    const lines = element.reduce((acc, node) => {
+      if (node.sign === '-') {
+        return [...acc, `Property '${nextProperty(property, node.key, node.sign)}' was removed`];
       }
-      if (key[0] === '+') return [...acc, `Property '${nextProperty(property, key.slice(2))}' was added with value: ${toString(value)}`];
-      if (key[0] === '-') return [...acc, `Property '${nextProperty(property, key.slice(2))}' was removed`];
-      if (!isObject(value)) return acc;
-      return [...acc, ...iter(value, `${nextProperty(property, key)}`)];
+      if (node.sign === '+') {
+        return [...acc, `Property '${nextProperty(property, node.key)}' was added with value: ${iter(node.newValue, node.key, node.sign)}`];
+      }
+      if (node.sign === '*') {
+        return [...acc, `Property ${nextProperty(property, node.key)}'' was updated. From ${iter(node.oldValue, node.key, node.sign)} to ${iter(node.newValue, node.key, node.sign)}`];
+      }
+      if (node.sign === '&') {
+        return [...acc, ...iter(node.value, `${nextProperty(property, node.key, node.sign)}`)];
+      }
+      if (node.sign === '=' && ['+', '-', '*'].includes(prevSign)) {
+        return [...acc, toString(node)];
+      }
+      return acc;
     }, []);
-
     return lines;
   };
-
-  resultString = iter(tree, '').join('\n');
+  const resultString = iter(tree).join('\n');
   return resultString;
 };
 
