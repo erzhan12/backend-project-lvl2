@@ -36,39 +36,71 @@ const genDiffObjects = (object1, object2) => {
   };
   const mergedKeys = mergeKeys(object1, object2).sort();
   const result = mergedKeys.reduce((acc, key) => {
-    const object = {};
-    object.key = key;
+    // const object = {};
+    // object.key = key;
 
     // If not equal
     // If both values are objects
     if (isObject(object1[key]) && isObject(object2[key])) {
-      object.sign = '&';
-      object.value = genDiffObjects(object1[key], object2[key]);
-      return [...acc, object];
+      // object.sign = '&';
+      // object.value = genDiffObjects(object1[key], object2[key]);
+      // return [...acc, object];
+      return [...acc,
+        {
+          key,
+          sign: '&',
+          value: genDiffObjects(object1[key], object2[key]),
+        },
+      ];
     }
     if (object1[key] === object2[key]) {
-      object.sign = '=';
-      object.value = assignValue(object1[key]);
-      return [...acc, object];
+      // object.sign = '=';
+      // object.value = assignValue(object1[key]);
+      return [...acc,
+        {
+          key,
+          sign: '=',
+          value: assignValue(object1[key]),
+        },
+      ];
     }
     // if changed
     if (_.has(object1, key) && _.has(object2, key)) {
-      object.sign = '*';
-      object.oldValue = assignValue(object1[key]);
-      object.newValue = assignValue(object2[key]);
-      return [...acc, object];
+      // object.sign = '*';
+      // object.oldValue = assignValue(object1[key]);
+      // object.newValue = assignValue(object2[key]);
+      return [...acc,
+        {
+          key,
+          sign: '*',
+          oldValue: assignValue(object1[key]),
+          newValue: assignValue(object2[key]),
+        },
+      ];
     }
     // removed
     if (_.has(object1, key)) {
-      object.sign = '-';
-      object.oldValue = assignValue(object1[key]);
-      return [...acc, object];
+      // object.sign = '-';
+      // object.oldValue = assignValue(object1[key]);
+      return [...acc,
+        {
+          key,
+          sign: '-',
+          oldValue: assignValue(object1[key]),
+        },
+      ];
     }
     // added
     if (_.has(object2, key)) {
-      object.sign = '+';
-      object.newValue = assignValue(object2[key]);
-      return [...acc, object];
+      // object.sign = '+';
+      // object.newValue = assignValue(object2[key]);
+      return [...acc,
+        {
+          key,
+          sign: '+',
+          newValue: assignValue(object2[key]),
+        },
+      ];
     }
 
     return acc;

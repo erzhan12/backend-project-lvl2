@@ -5,19 +5,16 @@ const parseJson = (data) => JSON.parse(data);
 const parseYaml = (data) => yaml.load(data);
 
 const parse = (data, extension) => {
-  let parseData;
+  // let parseData;
   switch (extension) {
     case '.json':
-      parseData = parseJson;
-      break;
+      return parseJson(data);
     case '.yml':
     case '.yaml':
-      parseData = parseYaml;
-      break;
+      return parseYaml(data);
     default:
-      parseData = parseJson;
+      return parseJson(data);
   }
-  return parseData(data);
 };
 
 export default parse;
