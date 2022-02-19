@@ -35,14 +35,26 @@ describe('geDiff plain', () => {
     const actual = genDiff(getFixturePath('file1.yml'), getFixturePath('file2.yml'), 'plain');
     expect(actual).toBe(expectedPlain);
   });
-  // it('#test yaml cli', () => {
-  //   const actual = execSync('gendiff __fixtures__/file1.yml __fixtures__/file2.yml',
-  // { encoding: 'utf-8' });
-  //   expect(actual).toBe(expected);
-  // });
-  // it('#test json cli', () => {
-  //   const actual = execSync('gendiff __fixtures__/file1.json __fixtures__/file2.json',
-  // { encoding: 'utf-8' });
-  //   expect(actual).toBe(expected);
-  // });
 });
+
+describe('geDiff JSON', () => {
+  const expectedJSON = fs.readFileSync(getFixturePath('expectedJSON.txt'), { encoding: 'utf8' });
+  it('#test json', () => {
+    const actual = genDiff(getFixturePath('file1.json'), getFixturePath('file2.json'), 'json');
+    expect(actual).toBe(expectedJSON);
+  });
+  it('#test yaml', () => {
+    const actual = genDiff(getFixturePath('file1.yml'), getFixturePath('file2.yml'), 'json');
+    expect(actual).toBe(expectedJSON);
+  });
+});
+// it('#test yaml cli', () => {
+//   const actual = execSync('gendiff __fixtures__/file1.yml __fixtures__/file2.yml',
+// { encoding: 'utf-8' });
+//   expect(actual).toBe(expected);
+// });
+// it('#test json cli', () => {
+//   const actual = execSync('gendiff __fixtures__/file1.json __fixtures__/file2.json',
+// { encoding: 'utf-8' });
+//   expect(actual).toBe(expected);
+// });

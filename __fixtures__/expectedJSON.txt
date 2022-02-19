@@ -1,0 +1,152 @@
+[
+  {
+    "key": "common",
+    "sign": "&",
+    "value": [
+      {
+        "key": "follow",
+        "sign": "+",
+        "newValue": false
+      },
+      {
+        "key": "setting1",
+        "sign": "=",
+        "value": "Value 1"
+      },
+      {
+        "key": "setting2",
+        "sign": "-",
+        "oldValue": 200
+      },
+      {
+        "key": "setting3",
+        "sign": "*",
+        "oldValue": true,
+        "newValue": null
+      },
+      {
+        "key": "setting4",
+        "sign": "+",
+        "newValue": "blah blah"
+      },
+      {
+        "key": "setting5",
+        "sign": "+",
+        "newValue": [
+          {
+            "key": "key5",
+            "sign": "=",
+            "value": "value5"
+          }
+        ]
+      },
+      {
+        "key": "setting6",
+        "sign": "&",
+        "value": [
+          {
+            "key": "doge",
+            "sign": "&",
+            "value": [
+              {
+                "key": "wow",
+                "sign": "*",
+                "oldValue": "",
+                "newValue": "so much"
+              }
+            ]
+          },
+          {
+            "key": "key",
+            "sign": "=",
+            "value": "value"
+          },
+          {
+            "key": "ops",
+            "sign": "+",
+            "newValue": "vops"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "key": "group1",
+    "sign": "&",
+    "value": [
+      {
+        "key": "baz",
+        "sign": "*",
+        "oldValue": "bas",
+        "newValue": "bars"
+      },
+      {
+        "key": "foo",
+        "sign": "=",
+        "value": "bar"
+      },
+      {
+        "key": "nest",
+        "sign": "*",
+        "oldValue": [
+          {
+            "key": "key",
+            "sign": "=",
+            "value": "value"
+          }
+        ],
+        "newValue": "str"
+      }
+    ]
+  },
+  {
+    "key": "group2",
+    "sign": "-",
+    "oldValue": [
+      {
+        "key": "abc",
+        "sign": "=",
+        "value": 12345
+      },
+      {
+        "key": "deep",
+        "sign": "&",
+        "value": [
+          {
+            "key": "id",
+            "sign": "=",
+            "value": 45
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "key": "group3",
+    "sign": "+",
+    "newValue": [
+      {
+        "key": "deep",
+        "sign": "&",
+        "value": [
+          {
+            "key": "id",
+            "sign": "&",
+            "value": [
+              {
+                "key": "number",
+                "sign": "=",
+                "value": 45
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "fee",
+        "sign": "=",
+        "value": 100500
+      }
+    ]
+  }
+]
