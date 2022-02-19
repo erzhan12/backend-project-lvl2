@@ -19,7 +19,7 @@ const stylish = (tree, indent = '  ') => {
         value = iter(node.oldValue, depth + 1);
         acc.push(`${valueIndent}${key}: ${value}`);
         key = `+ ${node.key}`;
-        value = iter(node.newValue);
+        value = iter(node.newValue, depth + 1);
       } else if (node.sign === '=' || node.sign === '&') {
         key = `  ${node.key}`;
         value = iter(node.value, depth + 1);

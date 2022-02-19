@@ -48,6 +48,18 @@ describe('geDiff JSON', () => {
     expect(actual).toBe(expectedJSON);
   });
 });
+describe('geDiff stylish hexlet', () => {
+  const expectedStylish = fs.readFileSync(getFixturePath('expectedStylish1.txt'), { encoding: 'utf8' });
+
+  it('#test json', () => {
+    const actual = genDiff(getFixturePath('file11.json'), getFixturePath('file21.json'), 'stylish');
+    expect(actual).toBe(expectedStylish);
+  });
+  // it('#test yaml', () => {
+  //   const actual = genDiff(getFixturePath('file1.yml'), getFixturePath('file2.yml'), 'stylish');
+  //   expect(actual).toBe(expectedStylish);
+  // });
+});
 // it('#test yaml cli', () => {
 //   const actual = execSync('gendiff __fixtures__/file1.yml __fixtures__/file2.yml',
 // { encoding: 'utf-8' });
