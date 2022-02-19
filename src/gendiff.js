@@ -20,7 +20,7 @@ const readFile = (fileName) => {
 const mergeKeys = (object1, object2) => Object.keys(object2)
   .reduce((acc, key2) => {
     if (!(acc.includes(key2))) {
-      acc.push(key2);
+      return [...acc, key2];
     }
     return acc;
   }, Object.keys(object1));
