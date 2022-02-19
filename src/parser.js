@@ -5,7 +5,6 @@ const parseJson = (data) => JSON.parse(data);
 const parseYaml = (data) => yaml.load(data);
 
 const parse = (data, extension) => {
-  // let parseData;
   switch (extension) {
     case '.json':
       return parseJson(data);

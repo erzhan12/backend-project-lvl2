@@ -34,17 +34,11 @@ const genDiffObjects = (object1, object2) => {
     }
     return value;
   };
-  const mergedKeys = mergeKeys(object1, object2).sort();
+  const mergedKeys = _.sortBy(mergeKeys(object1, object2));
   const result = mergedKeys.reduce((acc, key) => {
-    // const object = {};
-    // object.key = key;
-
     // If not equal
     // If both values are objects
     if (isObject(object1[key]) && isObject(object2[key])) {
-      // object.sign = '&';
-      // object.value = genDiffObjects(object1[key], object2[key]);
-      // return [...acc, object];
       return [...acc,
         {
           key,
@@ -54,8 +48,6 @@ const genDiffObjects = (object1, object2) => {
       ];
     }
     if (object1[key] === object2[key]) {
-      // object.sign = '=';
-      // object.value = assignValue(object1[key]);
       return [...acc,
         {
           key,
@@ -66,9 +58,6 @@ const genDiffObjects = (object1, object2) => {
     }
     // if changed
     if (_.has(object1, key) && _.has(object2, key)) {
-      // object.sign = '*';
-      // object.oldValue = assignValue(object1[key]);
-      // object.newValue = assignValue(object2[key]);
       return [...acc,
         {
           key,
@@ -80,8 +69,6 @@ const genDiffObjects = (object1, object2) => {
     }
     // removed
     if (_.has(object1, key)) {
-      // object.sign = '-';
-      // object.oldValue = assignValue(object1[key]);
       return [...acc,
         {
           key,
@@ -92,8 +79,6 @@ const genDiffObjects = (object1, object2) => {
     }
     // added
     if (_.has(object2, key)) {
-      // object.sign = '+';
-      // object.newValue = assignValue(object2[key]);
       return [...acc,
         {
           key,
@@ -114,10 +99,6 @@ const genDiff = (file1, file2, formatName) => {
 
   const resultObject = genDiffObjects(object1, object2);
   // console.log(resultObject);
-  // const jsonString = JSON.stringify(result, null, 3)
-  //   .replace(/"([^"]+)":/g, '$1:')
-  //   .replace(/: "([^"]+)",/g, ': $1')
-  // console.log(JSON.stringify(resultObject, null, 2));
   const resultString = format(resultObject, formatName);
 
   console.log(resultString);
