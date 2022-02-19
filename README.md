@@ -8,4 +8,4 @@
 [![Test Coverage](https://github.com/erzhan12/backend-project-lvl2/actions/workflows/lint.yml/badge.svg)](https://github.com/erzhan12/backend-project-lvl2/actions/workflows/lint.yml/badge.svg)
 
 Демонстрация работы:
-[![asciicast](https://asciinema.org/a/e2jwNqV0Y6uiObvI3kz6ZQcce.svg)](https://asciinema.org/a/e2jwNqV0Y6uiObvI3kz6ZQcce)
+[![asciicast](https://asciinema.org/a/8iwRLiSnwNzgqaUThE30QjIjR.svg)](https://asciinema.org/a/8iwRLiSnwNzgqaUThE30QjIjR)
