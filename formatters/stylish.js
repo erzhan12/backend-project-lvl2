@@ -6,25 +6,34 @@ const stylish = (tree, indent = '  ') => {
     const valueIndent = indent.repeat(2 * depth - 1);
     const bracketIndent = indent.repeat(2 * depth - 2);
     const lines = element.reduce((acc, node) => {
-      let key;
-      let value;
       if (node.sign === '-') {
-        key = `- ${node.key}`;
-        value = iter(node.oldValue, depth + 1);
-      } else if (node.sign === '+') {
-        key = `+ ${node.key}`;
-        value = iter(node.newValue, depth + 1);
-      } else if (node.sign === '*') {
-        key = `- ${node.key}`;
-        value = iter(node.oldValue, depth + 1);
-        acc.push(`${valueIndent}${key}: ${value}`);
-        key = `+ ${node.key}`;
-        value = iter(node.newValue, depth + 1);
-      } else if (node.sign === '=' || node.sign === '&') {
-        key = `  ${node.key}`;
-        value = iter(node.value, depth + 1);
+        // key = `- ${node.key}`;
+        // value = iter(node.oldValue, depth + 1);
+        return [...acc, `${valueIndent}- ${node.key}: ${iter(node.oldValue, depth + 1)}`];
       }
-      return [...acc, `${valueIndent}${key}: ${value}`];
+      if (node.sign === '+') {
+        // key = `+ ${node.key}`;
+        // value = iter(node.newValue, depth + 1);
+        return [...acc, `${valueIndent}+ ${node.key}: ${iter(node.newValue, depth + 1)}`];
+      }
+      if (node.sign === '*') {
+        // key = `- ${node.key}`;
+        // value = iter(node.oldValue, depth + 1);
+        // acc.push(`${valueIndent}${key}: ${value}`);
+        // key = `+ ${node.key}`;
+        // value = iter(node.newValue, depth + 1);
+        return [...acc,
+          `${valueIndent}- ${node.key}: ${iter(node.oldValue, depth + 1)}`,
+          `${valueIndent}+ ${node.key}: ${iter(node.newValue, depth + 1)}`,
+        ];
+      }
+      if (node.sign === '=' || node.sign === '&') {
+        // key = `  ${node.key}`;
+        // value = iter(node.value, depth + 1);
+        return [...acc, `${valueIndent}  ${node.key}: ${iter(node.value, depth + 1)}`];
+      }
+      // return [...acc, `${valueIndent}${key}: ${value}`];
+      return acc;
     }, []);
     return ['{', ...lines, `${bracketIndent}}`].join('\n');
   };
