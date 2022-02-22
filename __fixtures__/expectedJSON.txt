@@ -1,56 +1,56 @@
 [
   {
     "key": "common",
-    "sign": "&",
+    "type": "objects",
     "value": [
       {
         "key": "follow",
-        "sign": "+",
+        "type": "added",
         "newValue": false
       },
       {
         "key": "setting1",
-        "sign": "=",
+        "type": "equal",
         "value": "Value 1"
       },
       {
         "key": "setting2",
-        "sign": "-",
+        "type": "removed",
         "oldValue": 200
       },
       {
         "key": "setting3",
-        "sign": "*",
+        "type": "changed",
         "oldValue": true,
         "newValue": null
       },
       {
         "key": "setting4",
-        "sign": "+",
+        "type": "added",
         "newValue": "blah blah"
       },
       {
         "key": "setting5",
-        "sign": "+",
+        "type": "added",
         "newValue": [
           {
             "key": "key5",
-            "sign": "=",
+            "type": "equal",
             "value": "value5"
           }
         ]
       },
       {
         "key": "setting6",
-        "sign": "&",
+        "type": "objects",
         "value": [
           {
             "key": "doge",
-            "sign": "&",
+            "type": "objects",
             "value": [
               {
                 "key": "wow",
-                "sign": "*",
+                "type": "changed",
                 "oldValue": "",
                 "newValue": "so much"
               }
@@ -58,12 +58,12 @@
           },
           {
             "key": "key",
-            "sign": "=",
+            "type": "equal",
             "value": "value"
           },
           {
             "key": "ops",
-            "sign": "+",
+            "type": "added",
             "newValue": "vops"
           }
         ]
@@ -72,26 +72,26 @@
   },
   {
     "key": "group1",
-    "sign": "&",
+    "type": "objects",
     "value": [
       {
         "key": "baz",
-        "sign": "*",
+        "type": "changed",
         "oldValue": "bas",
         "newValue": "bars"
       },
       {
         "key": "foo",
-        "sign": "=",
+        "type": "equal",
         "value": "bar"
       },
       {
         "key": "nest",
-        "sign": "*",
+        "type": "changed",
         "oldValue": [
           {
             "key": "key",
-            "sign": "=",
+            "type": "equal",
             "value": "value"
           }
         ],
@@ -101,20 +101,20 @@
   },
   {
     "key": "group2",
-    "sign": "-",
+    "type": "removed",
     "oldValue": [
       {
         "key": "abc",
-        "sign": "=",
+        "type": "equal",
         "value": 12345
       },
       {
         "key": "deep",
-        "sign": "&",
+        "type": "objects",
         "value": [
           {
             "key": "id",
-            "sign": "=",
+            "type": "equal",
             "value": 45
           }
         ]
@@ -123,19 +123,19 @@
   },
   {
     "key": "group3",
-    "sign": "+",
+    "type": "added",
     "newValue": [
       {
         "key": "deep",
-        "sign": "&",
+        "type": "objects",
         "value": [
           {
             "key": "id",
-            "sign": "&",
+            "type": "objects",
             "value": [
               {
                 "key": "number",
-                "sign": "=",
+                "type": "equal",
                 "value": 45
               }
             ]
@@ -144,7 +144,7 @@
       },
       {
         "key": "fee",
-        "sign": "=",
+        "type": "equal",
         "value": 100500
       }
     ]

@@ -1,8 +1,6 @@
 import { describe, it, expect } from '@jest/globals';
-// import { execSync } from 'child_process';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
-// import { dirname } from 'path';
 import path from 'path';
 import genDiff from '../src/gendiff.js';
 
