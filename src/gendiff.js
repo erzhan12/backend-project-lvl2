@@ -1,6 +1,5 @@
 import fs from 'fs';
 import path from 'path';
-// import _ from 'lodash';
 import parse from './parser.js';
 import format from './formatters/index.js';
 import genDiffObjects from './gendiffObjects.js';
@@ -10,11 +9,24 @@ const getAbsolutePath = (fileName) => {
   return path.resolve(process.cwd(), fileName);
 };
 
+const getFormatName = (extension) => {
+  switch (extension) {
+    case '.json':
+      return 'json';
+    case '.yml':
+    case '.yaml':
+      return 'yaml';
+    default:
+      return 'json';
+  }
+};
+
 const readFile = (fileName) => {
   const absolutePath = getAbsolutePath(fileName);
   const extension = path.extname(fileName);
   const fileData = fs.readFileSync(absolutePath, { encoding: 'utf8' });
-  const obj = parse(fileData, extension);
+  const formatName = getFormatName(extension);
+  const obj = parse(fileData, formatName);
   return obj;
 };
 
@@ -23,10 +35,8 @@ const genDiff = (file1, file2, formatName) => {
   const object2 = readFile(path.resolve(process.cwd(), file2));
 
   const resultObject = genDiffObjects(object1, object2);
-  // console.log(resultObject);
   const resultString = format(resultObject, formatName);
 
-  console.log(resultString);
   return resultString;
 };
 

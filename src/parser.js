@@ -4,12 +4,11 @@ const parseJson = (data) => JSON.parse(data);
 
 const parseYaml = (data) => yaml.load(data);
 
-const parse = (data, extension) => {
-  switch (extension) {
-    case '.json':
+const parse = (data, formatName) => {
+  switch (formatName) {
+    case 'json':
       return parseJson(data);
-    case '.yml':
-    case '.yaml':
+    case 'yaml':
       return parseYaml(data);
     default:
       return parseJson(data);
